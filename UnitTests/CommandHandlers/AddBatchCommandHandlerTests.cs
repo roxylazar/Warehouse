@@ -32,13 +32,13 @@ namespace UnitTests.CommandHandlers
         [Fact]
         public void WhenProductNotFound_ThrowsException()
         {
-            var command = new AddBatchCommand { ProductName = "test" };
+            var command = new AddBatchCommand { ProductId = 1};
             _contextMock.Setup(x => x.Products)
-                .ReturnsDbSet(new List<Product> { new Product { Name = "pasta" } });
+                .ReturnsDbSet(new List<Product> { new Product { Id = 2 } });
 
             Func<Task> handle = async () => await _handler.Handle(command, new CancellationToken());
 
-            handle.Should().Throw<Exception>().WithMessage("No product with name test was found.");
+            handle.Should().Throw<Exception>().WithMessage("No product with id 1 was found.");
         }
 
         [Fact]
@@ -46,13 +46,13 @@ namespace UnitTests.CommandHandlers
         {
             var command = new AddBatchCommand
             {
-                ProductName = "test",
+                ProductId = 2,
                 Quantity = 10,
                 ExpirationDate = DateTime.Now
             };
 
             _contextMock.Setup(x => x.Products)
-                .ReturnsDbSet(new List<Product> { new Product { Name = "test" } });
+                .ReturnsDbSet(new List<Product> { new Product { Id = 2 } });
             _contextMock.Setup(x => x.Batches)
                .ReturnsDbSet(new List<Batch>());
 
@@ -66,12 +66,12 @@ namespace UnitTests.CommandHandlers
         {
             var command = new AddBatchCommand
             {
-                ProductName = "test",
+                ProductId = 2,
                 Quantity = 10,
                 ExpirationDate = DateTime.Now
             };
             _contextMock.Setup(x => x.Products)
-                .ReturnsDbSet(new List<Product> { new Product { Name = "test" } });
+                .ReturnsDbSet(new List<Product> { new Product { Id = 2 } });
             _contextMock.Setup(x => x.Batches)
                .ReturnsDbSet(new List<Batch>());
 

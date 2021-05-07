@@ -8,7 +8,7 @@ namespace WarehouseApi.Requests
         {
             return new AddBatchCommand
             {
-                ProductName = request.ProductName,
+                ProductId = request.ProductId,
                 ExpirationDate = request.ExpirationDate,
                 Quantity = request.Quantity
             };

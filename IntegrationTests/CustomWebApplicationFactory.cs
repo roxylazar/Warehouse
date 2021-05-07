@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Newtonsoft.Json;
@@ -14,9 +17,11 @@ namespace IntegrationTest
     public class CustomWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TEntryPoint>
         where TEntryPoint : class
     {
+      
         public CustomWebApplicationFactory(ITestOutputHelper testOutputHelper)
         {
             ClientOptions.AllowAutoRedirect = false;
+          
         }
 
         public Mock<WarehouseContext> WarehouseContextMock { get; } = new Mock<WarehouseContext>();

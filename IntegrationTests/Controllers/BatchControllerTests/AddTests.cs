@@ -33,7 +33,7 @@ namespace IntegrationTests.Controllers.WarehouseControllerTests
             var request = new AddBatchRequest
             {
                 Quantity = 0,
-                ProductName = "test",
+                ProductId = 1,
                 ExpirationDate = DateTime.Now.AddDays(-1)
             };
 
@@ -48,11 +48,11 @@ namespace IntegrationTests.Controllers.WarehouseControllerTests
             var request = new AddBatchRequest
             {
                 Quantity = 12,
-                ProductName = "test",
+                ProductId = 1,
                 ExpirationDate = DateTime.Now.AddDays(3)
             };
             WarehouseContextMock.Setup(x => x.Products)
-                .ReturnsDbSet(new List<Product> { new Product { Name = "test" } });
+                .ReturnsDbSet(new List<Product> { new Product { Id = 1 } });
             WarehouseContextMock.Setup(x => x.Batches)
                 .ReturnsDbSet(new List<Batch>());
 
@@ -67,11 +67,11 @@ namespace IntegrationTests.Controllers.WarehouseControllerTests
             var request = new AddBatchRequest
             {
                 Quantity = 12,
-                ProductName = "test",
+                ProductId = 1,
                 ExpirationDate = DateTime.Now.AddDays(3)
             };
             WarehouseContextMock.Setup(x => x.Products)
-                .ReturnsDbSet(new List<Product> { new Product { Name = "test" } });
+                .ReturnsDbSet(new List<Product> { new Product { Id = 1 } });
             WarehouseContextMock.Setup(x => x.Batches)
                 .ReturnsDbSet(new List<Batch>());
 
@@ -86,17 +86,17 @@ namespace IntegrationTests.Controllers.WarehouseControllerTests
             var request = new AddBatchRequest
             {
                 Quantity = 12,
-                ProductName = "test",
+                ProductId = 1,
                 ExpirationDate = DateTime.Now.AddDays(2)
             };
             WarehouseContextMock.Setup(x => x.Products)
-                .ReturnsDbSet(new List<Product> { new Product { Name = "sample" } });
+                .ReturnsDbSet(new List<Product> { new Product { Id = 2 } });
             WarehouseContextMock.Setup(x => x.Batches)
                 .ReturnsDbSet(new List<Batch>());
 
             Func<Task> handle = async () => await _client.PostAsJsonAsync(Uri, request);
 
-            handle.Should().Throw<Exception>().WithMessage("No product with name test was found.");
+            handle.Should().Throw<Exception>().WithMessage("No product with id 1 was found.");
         }
     }
 }

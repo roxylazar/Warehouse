@@ -14,7 +14,7 @@ namespace WarehouseApi.Requests.Validators
             RuleFor(x => x.ExpirationDate).GreaterThanOrEqualTo(clock.Now.Date.AddDays(1))
                 .WithMessage("Expiration date should begin from tomorrow.");
 
-            RuleFor(x => x.ProductName).NotEmpty();
+            RuleFor(x => x.ProductId).NotEmpty();
         }
     }
 }

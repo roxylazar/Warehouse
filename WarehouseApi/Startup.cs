@@ -48,11 +48,11 @@ namespace WarehouseApi
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WarehouseContext context)
-        {
-            context.Database.EnsureCreated();
-            context.Database.Migrate();
+        {    
             if (env.IsDevelopment())
             {
+                context.Database.EnsureCreated();
+                context.Database.Migrate();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SampleInventory v1"));

@@ -20,7 +20,7 @@ namespace WarehouseBusiness.CommandHandlers
 
         public async Task<int> Handle(AddBatchCommand command, CancellationToken cancellationToken)
         {
-            var product = FindProduct(command.ProductName);
+            var product = FindProduct(command.ProductId);
 
             ThrowWhenProductIsNull(command, product);
 
@@ -31,7 +31,7 @@ namespace WarehouseBusiness.CommandHandlers
         {
             if (product is null)
             {
-                throw new Exception($"No product with name {command.ProductName} was found.");
+                throw new Exception($"No product with id {command.ProductId} was found.");
             }
         }
 
@@ -51,9 +51,9 @@ namespace WarehouseBusiness.CommandHandlers
             return batch.Id;
         }
 
-        private Product FindProduct(string productName)
+        private Product FindProduct(int productId)
         {
-            return _context.Products.FirstOrDefault(x => x.Name.Equals(productName));
+            return _context.Products.FirstOrDefault(x => x.Id == productId);
         }
     }
 }

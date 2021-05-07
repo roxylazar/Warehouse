@@ -37,5 +37,17 @@ namespace WarehouseApi.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("/api/products")]
+        public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetAllProductsQuery(), cancellationToken);
+            if (result is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
     }
 }
